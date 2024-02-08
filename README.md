@@ -1,4 +1,4 @@
-## React Native Rating
+## React Native Custom Star Rating
 
 This library enables the use of both Swipe and Tap rating features in a single component and is compatible with both Android and iOS platforms.
 
