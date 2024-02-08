@@ -1,0 +1,29 @@
+{
+  "name": "react-native-rating",
+  "version": "1.0.0",
+  "description": "This component allows for rating using swipe and tap gestures, and it can be customized",
+  "main": "index.tsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react-native",
+    "reactjs",
+    "reactnative",
+    "gestures",
+    "ios",
+    "stars",
+    "android",
+    "ios",
+    "ratings",
+    "ui-components"
+  ],
+  "author": "codiant-technology",
+  "license": "ISC",
+  "peerDependencies": {
+    "react": "18.2.0",
+    "react-native": "0.72.5",
+    "react-native-gesture-handler": "2.12.1",
+    "react-native-reanimated": "^3.4.2"
+  }
+}

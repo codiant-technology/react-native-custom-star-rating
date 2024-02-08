@@ -1,0 +1,205 @@
+import React from "react";
+import { StyleSheet, View, Image } from "react-native";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  clamp,
+  withTiming,
+} from "react-native-reanimated";
+import { ratingCount } from "./utils/utils";
+import { Images } from "./utils/images";
+import { CustomRatingProps } from "./utils/interface";
+
+const Rating: React.FC<CustomRatingProps> = ({
+  initialRating = 1,
+  renderStarts = 5,
+  startHeight = 40,
+  onResult,
+  spaceBetween = 0,
+  filledImage,
+  unfilledImage,
+  isHalf = false,
+  swipeEnabled = true,
+}) => {
+  const containerDimensions = {
+    height: startHeight,
+    width: startHeight,
+  };
+  const maxRating = new Array(renderStarts).fill(0);
+  const position = useSharedValue(
+    initialRating ? initialRating * (startHeight + spaceBetween) : 0
+  );
+  const savedPosition = useSharedValue(
+    initialRating ? initialRating * (startHeight + spaceBetween) : 0
+  );
+  const panRat = (rates: number) => {
+    if (rates > renderStarts) {
+      return renderStarts;
+    }
+    return rates;
+  };
+
+  const onGenerateTap = (value: number, rates: number) => {
+    const ar = `${rates}`.split(".");
+    if (rates > value && ar.length > 1) {
+      return +rates + 0.5;
+    }
+    return value;
+  };
+
+  const panGesture = Gesture.Pan()
+    .enabled(swipeEnabled)
+    .runOnJS(true)
+    .onUpdate((e) => {
+      const maxWidth = clamp(
+        e.translationX + savedPosition.value,
+        0,
+        maxRating.length * (startHeight + spaceBetween)
+      );
+      position.value = maxWidth;
+    })
+    .onEnd(() => {
+      const rates = ratingCount(position.value / (startHeight + spaceBetween));
+      if (!isHalf) {
+        const value = Math.round(position.value / startHeight);
+        position.value = withTiming(
+          panRat(value) * startHeight + spaceBetween * +`${rates}`.split(".")[0]
+        );
+      } else {
+        position.value = withTiming(
+          rates * startHeight + spaceBetween * +`${rates}`.split(".")[0]
+        );
+      }
+      savedPosition.value = position.value;
+      setTimeout(() => {
+        onResult &&
+          onResult(ratingCount(position.value / (startHeight + spaceBetween)));
+      }, 250);
+    });
+
+  const Tap = Gesture.Tap()
+    .runOnJS(true)
+    .maxDuration(250)
+    .onStart((e) => {
+      const maxWidth = clamp(
+        e.x,
+        0,
+        maxRating.length * (startHeight + spaceBetween)
+      );
+      const halfEnabledValue = Math.round(maxWidth / startHeight);
+      const rates = ratingCount(maxWidth / (startHeight + spaceBetween));
+      if (!isHalf) {
+        const value = halfEnabledValue === 0 ? 1 : halfEnabledValue;
+        position.value = withTiming(
+          onGenerateTap(value, rates) * startHeight +
+            spaceBetween * +`${rates}`.split(".")[0]
+        );
+      } else {
+        position.value = withTiming(
+          rates * startHeight + spaceBetween * +`${rates}`.split(".")[0]
+        );
+      }
+    })
+    .onEnd((e) => {
+      savedPosition.value = position.value;
+      setTimeout(() => {
+        onResult &&
+          onResult(
+            ratingCount(
+              (isHalf ? e.x : position.value) / (startHeight + spaceBetween)
+            )
+          );
+      }, 250);
+    });
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      width: position.value,
+    };
+  });
+
+  const unFilled = (): React.ReactNode => {
+    return maxRating.map((_, key) => {
+      return (
+        <View key={key.toString()}>
+          <Image
+            tintColor={"grey"}
+            style={[
+              styles.starImageStyle,
+              { ...containerDimensions, marginRight: spaceBetween },
+            ]}
+            source={unfilledImage ? unfilledImage : Images.ic_star}
+          />
+        </View>
+      );
+    });
+  };
+  const filled = (): React.ReactNode => {
+    return maxRating.map((_, key) => {
+      return (
+        <View key={key.toString()}>
+          <Image
+            style={[
+              styles.starImageStyle,
+              { ...containerDimensions, marginRight: spaceBetween },
+            ]}
+            source={filledImage ? filledImage : Images.ic_filled_star}
+          />
+        </View>
+      );
+    });
+  };
+  return (
+    <GestureDetector gesture={Gesture.Exclusive(panGesture, Tap)}>
+      <Animated.View
+        style={[
+          styles.hideFlow,
+          { width: maxRating.length * (startHeight + spaceBetween) },
+        ]}
+      >
+        <Animated.View style={styles.unFilledContainer}>
+          {unFilled()}
+        </Animated.View>
+        <Animated.View style={[styles.filledContainer, animatedStyle]}>
+          {filled()}
+        </Animated.View>
+      </Animated.View>
+    </GestureDetector>
+  );
+};
+
+export default React.memo(Rating);
+
+const styles = StyleSheet.create({
+  customRatingBarStyle: {
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  starImageStyle: {
+    resizeMode: "cover",
+  },
+  beforeContainer: {
+    flex: 1,
+    position: "absolute",
+    top: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 9,
+    overflow: "hidden",
+  },
+  unFilledContainer: {
+    flexDirection: "row",
+    zIndex: 1,
+    position: "absolute",
+    right: 0,
+  },
+  filledContainer: {
+    flexDirection: "row",
+    zIndex: 999,
+    left: 0,
+    overflow: "hidden",
+  },
+  hideFlow: {
+    overflow: "hidden",
+  },
+});
