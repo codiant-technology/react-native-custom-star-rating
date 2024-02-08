@@ -13,8 +13,8 @@ import { CustomRatingProps } from "./utils/interface";
 
 const Rating: React.FC<CustomRatingProps> = ({
   initialRating = 1,
-  renderStarts = 5,
-  startHeight = 40,
+  renderStars = 5,
+  starHeight = 40,
   onResult,
   spaceBetween = 0,
   filledImage,
@@ -23,19 +23,19 @@ const Rating: React.FC<CustomRatingProps> = ({
   swipeEnabled = true,
 }) => {
   const containerDimensions = {
-    height: startHeight,
-    width: startHeight,
+    height: starHeight,
+    width: starHeight,
   };
-  const maxRating = new Array(renderStarts).fill(0);
+  const maxRating = new Array(renderStars).fill(0);
   const position = useSharedValue(
-    initialRating ? initialRating * (startHeight + spaceBetween) : 0
+    initialRating ? initialRating * (starHeight + spaceBetween) : 0
   );
   const savedPosition = useSharedValue(
-    initialRating ? initialRating * (startHeight + spaceBetween) : 0
+    initialRating ? initialRating * (starHeight + spaceBetween) : 0
   );
   const panRat = (rates: number) => {
-    if (rates > renderStarts) {
-      return renderStarts;
+    if (rates > renderStars) {
+      return renderStars;
     }
     return rates;
   };
@@ -55,26 +55,26 @@ const Rating: React.FC<CustomRatingProps> = ({
       const maxWidth = clamp(
         e.translationX + savedPosition.value,
         0,
-        maxRating.length * (startHeight + spaceBetween)
+        maxRating.length * (starHeight + spaceBetween)
       );
       position.value = maxWidth;
     })
     .onEnd(() => {
-      const rates = ratingCount(position.value / (startHeight + spaceBetween));
+      const rates = ratingCount(position.value / (starHeight + spaceBetween));
       if (!isHalf) {
-        const value = Math.round(position.value / startHeight);
+        const value = Math.round(position.value / starHeight);
         position.value = withTiming(
-          panRat(value) * startHeight + spaceBetween * +`${rates}`.split(".")[0]
+          panRat(value) * starHeight + spaceBetween * +`${rates}`.split(".")[0]
         );
       } else {
         position.value = withTiming(
-          rates * startHeight + spaceBetween * +`${rates}`.split(".")[0]
+          rates * starHeight + spaceBetween * +`${rates}`.split(".")[0]
         );
       }
       savedPosition.value = position.value;
       setTimeout(() => {
         onResult &&
-          onResult(ratingCount(position.value / (startHeight + spaceBetween)));
+          onResult(ratingCount(position.value / (starHeight + spaceBetween)));
       }, 250);
     });
 
@@ -85,19 +85,19 @@ const Rating: React.FC<CustomRatingProps> = ({
       const maxWidth = clamp(
         e.x,
         0,
-        maxRating.length * (startHeight + spaceBetween)
+        maxRating.length * (starHeight + spaceBetween)
       );
-      const halfEnabledValue = Math.round(maxWidth / startHeight);
-      const rates = ratingCount(maxWidth / (startHeight + spaceBetween));
+      const halfEnabledValue = Math.round(maxWidth / starHeight);
+      const rates = ratingCount(maxWidth / (starHeight + spaceBetween));
       if (!isHalf) {
         const value = halfEnabledValue === 0 ? 1 : halfEnabledValue;
         position.value = withTiming(
-          onGenerateTap(value, rates) * startHeight +
+          onGenerateTap(value, rates) * starHeight +
             spaceBetween * +`${rates}`.split(".")[0]
         );
       } else {
         position.value = withTiming(
-          rates * startHeight + spaceBetween * +`${rates}`.split(".")[0]
+          rates * starHeight + spaceBetween * +`${rates}`.split(".")[0]
         );
       }
     })
@@ -107,7 +107,7 @@ const Rating: React.FC<CustomRatingProps> = ({
         onResult &&
           onResult(
             ratingCount(
-              (isHalf ? e.x : position.value) / (startHeight + spaceBetween)
+              (isHalf ? e.x : position.value) / (starHeight + spaceBetween)
             )
           );
       }, 250);
@@ -154,7 +154,7 @@ const Rating: React.FC<CustomRatingProps> = ({
       <Animated.View
         style={[
           styles.hideFlow,
-          { width: maxRating.length * (startHeight + spaceBetween) },
+          { width: maxRating.length * (starHeight + spaceBetween) },
         ]}
       >
         <Animated.View style={styles.unFilledContainer}>
