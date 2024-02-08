@@ -1,5 +1,5 @@
 {
-  "name": "react-native-rating",
+  "name": "react-native-custom-star-rating",
   "version": "1.0.0",
   "description": "This component allows for rating using swipe and tap gestures, and it can be customized",
   "main": "index.tsx",
@@ -25,5 +25,14 @@
     "react-native": "0.72.5",
     "react-native-gesture-handler": "2.12.1",
     "react-native-reanimated": "^3.4.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codiant-technology/react-native-custom-star-rating.git"
+  },
+  "bugs": {
+    "url": "https://github.com/codiant-technology/react-native-custom-star-rating/issues"
+  },
+  "homepage": "https://github.com/codiant-technology/react-native-custom-star-rating#readme"
 }

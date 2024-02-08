@@ -15,16 +15,16 @@ This library enables the use of both Swipe and Tap rating features in a single c
 
 ### Installation
 
-`$ yarn add react-native-rating`
+`$ yarn add react-native-custom-star-rating`
 
 Or
 
-`$ npm install react-native-rating`
+`$ npm install react-native-custom-star-rating`
 
 ## Usage
 
 ```javascript
-import Rating from "react-native-rating";
+import Rating from "react-native-custom-star-rating";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
