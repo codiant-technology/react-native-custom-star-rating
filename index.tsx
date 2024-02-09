@@ -7,7 +7,7 @@ import Animated, {
   clamp,
   withTiming,
 } from "react-native-reanimated";
-import { ratingCount } from "./utils/utils";
+import { ratingCount, initialRating_ } from "./utils/utils";
 import { Images } from "./utils/images";
 import { CustomRatingProps } from "./utils/interface";
 
@@ -28,10 +28,14 @@ const Rating: React.FC<CustomRatingProps> = ({
   };
   const maxRating = new Array(renderStars).fill(0);
   const position = useSharedValue(
-    initialRating ? initialRating * (starHeight + spaceBetween) : 0
+    initialRating
+      ? initialRating_(initialRating, starHeight, spaceBetween, renderStars)
+      : 0
   );
   const savedPosition = useSharedValue(
-    initialRating ? initialRating * (starHeight + spaceBetween) : 0
+    initialRating
+      ? initialRating_(initialRating, starHeight, spaceBetween, renderStars)
+      : 0
   );
   const panRat = (rates: number) => {
     if (rates > renderStars) {

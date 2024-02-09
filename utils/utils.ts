@@ -17,3 +17,28 @@ export const ratingCount = (rating: number): number => {
   }
   return 0;
 };
+
+/**
+ *
+ * @param initialRating
+ * @param starHeight
+ * @param spaceBetween
+ * @param maxRating
+ * @returns ratingPosition
+ */
+export const initialRating_ = (
+  initialRating: number,
+  starHeight: number,
+  spaceBetween: number,
+  maxRating: number
+) => {
+  if (initialRating > maxRating) {
+    const rate1 =
+      maxRating * starHeight + spaceBetween * +`${initialRating}`.split(".")[0];
+    return rate1;
+  }
+  const rate =
+    initialRating * starHeight +
+    spaceBetween * +`${initialRating}`.split(".")[0];
+  return rate;
+};
