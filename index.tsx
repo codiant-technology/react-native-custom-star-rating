@@ -22,6 +22,8 @@ const Rating: React.FC<CustomRatingProps> = ({
   isHalf = false,
   swipeEnabled = true,
   tapEnabled = true,
+  activeTintColor,
+  inActiveTintColor,
 }) => {
   const containerDimensions = {
     height: starHeight,
@@ -129,7 +131,7 @@ const Rating: React.FC<CustomRatingProps> = ({
       return (
         <View key={key.toString()}>
           <Image
-            tintColor={"grey"}
+            tintColor={inActiveTintColor ? inActiveTintColor : "grey"}
             style={[
               styles.starImageStyle,
               { ...containerDimensions, marginRight: spaceBetween },
@@ -145,6 +147,7 @@ const Rating: React.FC<CustomRatingProps> = ({
       return (
         <View key={key.toString()}>
           <Image
+            tintColor={activeTintColor ? activeTintColor : undefined}
             style={[
               styles.starImageStyle,
               { ...containerDimensions, marginRight: spaceBetween },

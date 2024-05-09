@@ -11,4 +11,6 @@ export interface CustomRatingProps {
   isHalf?: boolean;
   swipeEnabled?: boolean;
   tapEnabled?: boolean;
+  activeTintColor?: string;
+  inActiveTintColor?: string;
 }

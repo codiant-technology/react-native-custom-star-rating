@@ -1,6 +1,6 @@
 {
   "name": "react-native-custom-star-rating",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "This component allows for rating using swipe and tap gestures, and it can be customized",
   "main": "index.tsx",
   "scripts": {
