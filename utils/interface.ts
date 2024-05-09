@@ -10,4 +10,5 @@ export interface CustomRatingProps {
   unfilledImage?: ImageRequireSource;
   isHalf?: boolean;
   swipeEnabled?: boolean;
+  tapEnabled?: boolean;
 }

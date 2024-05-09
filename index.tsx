@@ -21,6 +21,7 @@ const Rating: React.FC<CustomRatingProps> = ({
   unfilledImage,
   isHalf = false,
   swipeEnabled = true,
+  tapEnabled = true,
 }) => {
   const containerDimensions = {
     height: starHeight,
@@ -83,6 +84,7 @@ const Rating: React.FC<CustomRatingProps> = ({
     });
 
   const Tap = Gesture.Tap()
+    .enabled(tapEnabled)
     .runOnJS(true)
     .maxDuration(250)
     .onStart((e) => {
