@@ -60,14 +60,17 @@ npm i react-native-reanimated@3.4.2
 
 ## Props
 
-| prop          | default          | type                   | description                                                                                |
-| ------------- | ---------------- | ---------------------- | ------------------------------------------------------------------------------------------ |
-| initialRating | 1                | number                 | Initial value for the rating                                                               |
-| renderStars   | 5                | number                 | For Render numbers of Stars                                                                |
-| starHeight    | 40               | number                 | Height and Width of Stars                                                                  |
-| onResult      |                  | function(value:number) | The "onResult" is a callback function that provides the final rating output.               |
-| spaceBetween  | 0                | number                 | spaceBetween prop is used for provide space between stars                                  |
-| filledImage   | FilledStar.png   | ImageRequireSource     | The "filledImage" property is used to specify your own image for the filled star.          |
-| unfilledImage | UnFilledStar.png | ImageRequireSource     | The "unfilledImage" property is used to specify your own image for the unfilled star.      |
-| isHalf        | false            | boolean                | The "isHalf" property is used to enable the functionality of half-star rating.             |
-| swipeEnabled  | true             | boolean                | The "swipeEnabled" property is used to enable the Swipe functionality in Rating component. |
+| prop              | default          | type                   | description                                                                                    |
+| ----------------- | ---------------- | ---------------------- | ---------------------------------------------------------------------------------------------- |
+| initialRating     | 1                | number                 | Initial value for the rating                                                                   |
+| renderStars       | 5                | number                 | For Render numbers of Stars                                                                    |
+| starHeight        | 40               | number                 | Height and Width of Stars                                                                      |
+| onResult          |                  | function(value:number) | The "onResult" is a callback function that provides the final rating output.                   |
+| spaceBetween      | 0                | number                 | spaceBetween prop is used for provide space between stars                                      |
+| filledImage       | FilledStar.png   | ImageRequireSource     | The "filledImage" property is used to specify your own image for the filled star.              |
+| unfilledImage     | UnFilledStar.png | ImageRequireSource     | The "unfilledImage" property is used to specify your own image for the unfilled star.          |
+| isHalf            | false            | boolean                | The "isHalf" property is used to enable the functionality of half-star rating.                 |
+| swipeEnabled      | true             | boolean                | The "swipeEnabled" property is used to enable the Swipe functionality in Rating component.     |
+| tapEnabled        | true             | boolean                | The "tapEnabled" property is used to enable the Tap functionality in Rating component.         |
+| activeTintColor   |                  | string                 | The "activeTintColor" property is used to specify your own color for the filled starcomponent. |
+| inActiveTintColor |                  | string                 | The "inActiveTintColor" property is used to specify your own color for the unfilled star.      |
